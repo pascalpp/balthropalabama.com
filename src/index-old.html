@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>balthrop, alabama</title>
+<link rel="stylesheet" href="/lib/balthrop-styles.css" type="text/css" media="all" />
+<style type="text/css">
+
+body {
+	background-color: #000;
+	background-image: none;
+}
+
+a { color: #fff; }
+
+#frame {
+	position: relative;
+	display: block;
+	background-image: url(lib/explode-stills/giltframe.jpg);
+	background-repeat: no-repeat;
+	width: 723px;
+	height: 585px;
+	cursor: pointer;
+}
+
+#frame img {
+	position: absolute;
+	left: 110px;
+	top: 116px;
+}
+
+#clickprompt {
+	position: absolute;
+	right: 120px;
+	bottom: 120px;
+	font-size: 12px;
+	display: none;
+	color: #fff;
+}
+
+</style>
+
+<script language="javascript" type="text/javascript">
+
+function newImage(arg) {
+	rslt = new Image();
+	rslt.src = arg;
+	return rslt;
+}
+function randomNum(start,end) {
+	var range = end - start + 1;
+	var n = Math.floor(Math.random() * (range)) + start;
+	return(n);
+}
+
+var imgnum = 0;
+
+function swapImages() {
+	imgnum++;
+	if (imgnum >= imgs[set].length) imgnum = 0;
+
+	document.images['still'].src = imgs[set][imgnum].src;
+
+}
+
+function nextSet() {
+	prompt.style.display = "none";
+	set++;
+	if (set >= imgs.length) set = 0;
+}
+
+function stopStart() {
+	if (maintimer) {
+		stop();
+	} else {
+		start();
+	}
+}
+
+function stop() {
+	clearInterval(maintimer);
+	maintimer = null;
+	clicker.innerHTML = "(play)";
+	//prompt.style.display = "inline";
+}
+
+function start() {
+	clicker.innerHTML = "(pause)";
+	nextSet();
+	maintimer = setInterval('nextSet()',800);
+}
+
+function frameClick() {
+	if (maintimer) {
+		stop();
+	} else {
+		nextSet();
+	}
+}
+
+
+
+var set;
+var imgs;
+var maintimer;
+var prompt;
+var clicker;
+
+function startup() {
+	imgs = [
+		[newImage('lib/explode-stills/explode-stills-b0.jpg'),newImage('lib/explode-stills/explode-stills-b1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-a0.jpg'),newImage('lib/explode-stills/explode-stills-a1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-c0.jpg'),newImage('lib/explode-stills/explode-stills-c1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-e0.jpg'),newImage('lib/explode-stills/explode-stills-e1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-d0.jpg'),newImage('lib/explode-stills/explode-stills-d1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-k0.jpg'),newImage('lib/explode-stills/explode-stills-k1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-f0.jpg'),newImage('lib/explode-stills/explode-stills-f1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-g0.jpg'),newImage('lib/explode-stills/explode-stills-g1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-h0.jpg'),newImage('lib/explode-stills/explode-stills-h1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-i0.jpg'),newImage('lib/explode-stills/explode-stills-i1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-l0.jpg'),newImage('lib/explode-stills/explode-stills-l1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-j0.jpg'),newImage('lib/explode-stills/explode-stills-j1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-babbie0.jpg'),newImage('lib/explode-stills/explode-stills-babbie1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-benton0.jpg'),newImage('lib/explode-stills/explode-stills-benton1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-clanton0.jpg'),newImage('lib/explode-stills/explode-stills-clanton1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-douglas0.jpg'),newImage('lib/explode-stills/explode-stills-douglas1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-elba0.jpg'),newImage('lib/explode-stills/explode-stills-elba1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-elmore0.jpg'),newImage('lib/explode-stills/explode-stills-elmore1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-florence0.jpg'),newImage('lib/explode-stills/explode-stills-florence1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-georgiana0.jpg'),newImage('lib/explode-stills/explode-stills-georgiana1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-grace0.jpg'),newImage('lib/explode-stills/explode-stills-grace1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-grant0.jpg'),newImage('lib/explode-stills/explode-stills-grant1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-jemison0.jpg'),newImage('lib/explode-stills/explode-stills-jemison1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-luverne0.jpg'),newImage('lib/explode-stills/explode-stills-luverne1.jpg')],
+		[newImage('lib/explode-stills/explode-stills-smurf0.jpg'),newImage('lib/explode-stills/explode-stills-smurf1.jpg')]
+	];
+
+	prompt = document.getElementById('clickprompt');
+	//prompt.style.display = "inline";
+	
+	clicker = document.getElementById('stopstartclicker');
+
+	set = randomNum(0,imgs.length - 1);
+	setInterval('swapImages()',100);
+	//swapImages()
+}
+
+
+</script>
+
+</head>
+<body onload="startup()">
+
+<table border="0" cellpadding="0" cellspacing="0" width="99%" style="margin-top:20px">
+<tr><td align="center" valign="middle">
+
+<div id="frame" onclick="frameClick()">
+<img src="lib/explode-stills/pixel.gif" width="504" height="360" border="0" name="still" />
+<div id="clickprompt">(click for more)</div>
+</div>
+<p>
+<a href="javascript:stopStart()" id="stopstartclicker">(play)</a> &#160;  &#160;  &#160;  &#160;  &#160;  &#160;  &#160;  &#160;  &#160; 
+<a href="index2.html">(enter site)</a>
+</p>
+<!--  -->
+
+</td></tr></table>
+
+</body>
+</html>

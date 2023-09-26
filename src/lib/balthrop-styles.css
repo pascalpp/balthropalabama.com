@@ -1,0 +1,79 @@
+body {
+	background-image: url(images/tile.gif);
+}
+
+body, td {
+	font-family: Georgia, Serif;
+	font-size: 16px;
+	color: #82B962;
+}
+
+.info td {
+	padding: 6px;
+	padding-top: 4px;
+}
+
+a {
+	color: #82B962;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ffffff;
+}
+
+.info td {
+	margin-top: 4px;
+	vertical-align: top;
+	line-height: 24px;
+}
+
+.info a {
+	padding: 3px 5px;
+}
+
+.info a:hover {
+	padding: 2px 4px;
+	border: 1px dashed; 
+}
+
+.buttons a {
+	display: block;
+	padding: 5px 7px 3px;
+	margin: 0px 5px;
+	text-align: center;
+}
+
+.buttons a:hover {
+	padding: 4px 6px 2px;
+	border: 1px dashed; 
+}
+
+.small {
+	font-size: 12px;
+}
+
+.gallery {
+	margin-top: 10px;
+}
+
+.gallery a {
+	display: block;
+	float: left;
+	padding: 5px;
+	background-color: #ffffff;
+	border: 1px solid #BAA994;
+	margin: 1px 8px 8px 1px;
+}
+
+.gallery a:hover {
+	border: 2px solid #000;
+	margin: 0px 7px 7px 0px;
+}
+
+.gallery img {
+	display: block;
+	border: none;
+	height: 85px;
+}
+

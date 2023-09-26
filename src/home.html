@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>balthrop, alabama</title>
+<link rel="stylesheet" href="/lib/balthrop-styles.css" type="text/css" media="all" />
+<script language="javascript" type="text/javascript" src="/lib/js/jquery-pack.js"></script>
+<script language="javascript" type="text/javascript" src="/lib/js/swfobject.js"></script>
+<style type="text/css">
+
+body {
+	background-color: #000;
+	background-image: none;
+	color: #D5B16B;
+	margin: 0;
+}
+
+a { color: #555558; }
+a:hover { color: #fff; }
+
+h3 {
+	font-weight: normal;
+	margin-bottom: 0;
+}
+
+p.bandblurb {
+	margin-top: 0;
+	margin-bottom: 3em;
+	line-height: 1em;
+	font-size: 0.8em;
+	color: #666;
+}
+
+
+#center {
+	position: relative;
+	width: 950px;
+	margin: auto;
+	margin-top: 20px;
+	padding-bottom: 20px;
+}
+
+#frame {
+	position: relative;
+	float: left;
+	display: block;
+	background-image: url(lib/explode-stills/giltframe.jpg);
+	background-repeat: no-repeat;
+	width: 723px;
+	height: 585px;
+	cursor: pointer;
+	margin-right: 20px;
+}
+
+#frame #imgdiv {
+	position: absolute;
+	left: 110px;
+	top: 116px;
+	width: 504px;
+	height: 360px;
+}
+
+#frame #videodiv {
+	position: absolute;
+	left: 105px;
+	top: 112px;
+	width: 512px;
+	height: 372px;
+}
+
+.sans {
+	font-size: 11px;
+	font-family: Arial, Sans-Serif;
+}
+
+#mp3player {
+	color: #fff;
+	line-height: 14px;
+	margin-top: 80px;
+}
+
+#mp3player p {
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+#mp3player a { color: #999; text-decoration: none; }
+#mp3player a:hover { color: #fff; text-decoration: underline; }
+
+#links {
+	text-align: left;
+	padding-top: 10px;
+	line-height: 1.6em;
+}
+
+#links a {
+}
+
+.videoicon {
+	background-image: url(lib/images/video-icon.gif);
+	background-repeat: no-repeat;
+	background-position: 2px 5px;
+	padding-left: 16px;
+}
+
+a:hover .videoicon {
+	background-image: url(lib/images/video-icon-over.gif);
+}
+
+</style>
+
+<script language="javascript" type="text/javascript">
+
+/*------------------------------------------------------------
+*  Function:  parseQuery
+*  
+*  Description:
+*  allows us to set javascript variables by passing them in as
+*  values in the query string. by default it looks for the
+*  query string after the occurrence of '?' in URL of the
+*  current document
+*  
+*  Parameters:
+*  loc		string	url to search for query string
+*  key		string	string which delimits query string from rest of URL
+*  
+*  Return:
+*  none
+*------------------------------------------------------------*/
+function parseQuery(loc,key) {
+	var qq = new Array();
+	if (loc == null) loc = document.location.href;
+	if (key == null) key = '?';
+	if (loc.indexOf(key) > -1) {
+		query = loc.substring(loc.indexOf(key)+key.length,loc.length);
+		args = query.split('\&');
+		for (i=0; i<args.length; i++) {
+			chunk = args[i];
+			qq[chunk.split('=')[0]] = unescape(chunk.split('=')[1]);
+		}
+	}
+	return qq;
+}
+
+function newImage(arg) {
+	rslt = new Image();
+	rslt.src = arg;
+	return rslt;
+}
+function randomNum(start,end) {
+	var range = end - start + 1;
+	var n = Math.floor(Math.random() * (range)) + start;
+	return(n);
+}
+
+var imgnum = 0;
+
+
+function swapImages() {
+	imgnum++;
+	if (imgnum >= imgs[set].length) imgnum = 0;
+	
+	document.images['still'].src = imgs[set][imgnum].src;
+
+}
+
+function preloadImages() {
+
+	for (var i=0; i<imgs.length; i++) {
+		for (var j=0; j<imgs[i].length; j++) {
+			if (! imgs[i][j].src) imgs[i][j] = newImage(imgs[i][j]);
+		}
+	}
+
+}
+
+
+function nextSet() {
+	//prompt.style.display = "none";
+	if (mode == "slideshow") set++;
+	if (set >= imgs.length) set = 1; // skip first image - next show slot
+}
+
+function togglePlay() {
+	if (setinterval) {
+		playstop();
+	} else {
+		playstart();
+	}
+}
+
+function playstop() {
+	clearInterval(setinterval);
+	setinterval = null;
+	clicker.innerHTML = playslideshowtext;
+}
+
+function playstart() {
+	if (mode != "slideshow") {
+		clearInterval(imginterval);
+		imginterval = setInterval('swapImages()',100);
+		$('#videodiv').html('').hide();
+		$('#mp3playerswf').show();
+		$('#imgdiv').show();
+		mode = "slideshow";
+	}
+
+	clicker.innerHTML = pauseslideshowtext;
+	if (set == 0) set = pausedset;
+	setinterval = setInterval('nextSet()',1800);
+}
+
+function frameClick() {
+	if (setinterval) {
+		playstop();
+	} else {
+		nextSet();
+	}
+}
+
+function nextShow() {
+	if (mode != "slideshow") playstart();
+	playstop();
+	pausedset = set;
+	set = 0;
+}
+
+function showMP3player(autostart) {
+	if (! autostart) autostart = 'false';
+	mp3obj = new SWFObject('/lib/flash-mp3-player/mp3player.swf','mpl','200','19','7');
+	mp3obj.addParam('allowfullscreen','false');
+	mp3obj.addVariable('autostart',autostart);
+	mp3obj.addVariable('file','/lib/songs/explode-web.mp3');
+	mp3obj.addVariable('height','19');
+	mp3obj.addVariable('width','200');
+	mp3obj.write('mp3playerswf');
+}
+
+function showFLVplayer(autostart) {
+	if (mode != "video") {
+		clearInterval(imginterval);
+		imginterval = null;
+	
+		$('#mp3playerswf').hide();
+		$('#imgdiv').hide();
+		$('#videodiv').show();
+		playstop();
+		showMP3player('false');
+		mode = "video";
+	}
+
+
+	if (! autostart) autostart = 'true';
+	flvobj = new SWFObject("/lib/flash-flv-player/flvplayer.swf","single","512","368","7");
+	flvobj.addParam("allowfullscreen","true");
+	flvobj.addVariable('autostart',autostart);
+	flvobj.addVariable("file","/lib/videos/explode-504x341a-On2-1000k.flv");
+	flvobj.write("videodiv");
+
+}
+
+
+var set = 1;
+var pausedset = 1;
+var setinterval;
+var imginterval;
+//var prompt;
+var clicker;
+var mp3obj;
+var flvobj;
+var mode;
+
+var playslideshowtext = "&laquo; play slideshow";
+var pauseslideshowtext = "&laquo; pause slideshow";
+
+var	imgs = [
+	['lib/nextshow/2008-03-17a.gif','lib/nextshow/2008-03-17b.gif'],
+	['lib/explode-stills/explode-stills-b0.jpg','lib/explode-stills/explode-stills-b1.jpg'],
+	['lib/explode-stills/explode-stills-a0.jpg','lib/explode-stills/explode-stills-a1.jpg'],
+	['lib/explode-stills/explode-stills-c0.jpg','lib/explode-stills/explode-stills-c1.jpg'],
+	['lib/explode-stills/explode-stills-e0.jpg','lib/explode-stills/explode-stills-e1.jpg'],
+	['lib/explode-stills/explode-stills-d0.jpg','lib/explode-stills/explode-stills-d1.jpg'],
+	['lib/explode-stills/explode-stills-k0.jpg','lib/explode-stills/explode-stills-k1.jpg'],
+	['lib/explode-stills/explode-stills-f0.jpg','lib/explode-stills/explode-stills-f1.jpg'],
+	['lib/explode-stills/explode-stills-g0.jpg','lib/explode-stills/explode-stills-g1.jpg'],
+	['lib/explode-stills/explode-stills-h0.jpg','lib/explode-stills/explode-stills-h1.jpg'],
+	['lib/explode-stills/explode-stills-i0.jpg','lib/explode-stills/explode-stills-i1.jpg'],
+	['lib/explode-stills/explode-stills-l0.jpg','lib/explode-stills/explode-stills-l1.jpg'],
+	['lib/explode-stills/explode-stills-j0.jpg','lib/explode-stills/explode-stills-j1.jpg'],
+	['lib/explode-stills/explode-stills-babbie0.jpg','lib/explode-stills/explode-stills-babbie1.jpg'],
+	['lib/explode-stills/explode-stills-benton0.jpg','lib/explode-stills/explode-stills-benton1.jpg'],
+	['lib/explode-stills/explode-stills-clanton0.jpg','lib/explode-stills/explode-stills-clanton1.jpg'],
+	['lib/explode-stills/explode-stills-douglas0.jpg','lib/explode-stills/explode-stills-douglas1.jpg'],
+	['lib/explode-stills/explode-stills-elba0.jpg','lib/explode-stills/explode-stills-elba1.jpg'],
+	['lib/explode-stills/explode-stills-elmore0.jpg','lib/explode-stills/explode-stills-elmore1.jpg'],
+	['lib/explode-stills/explode-stills-florence0.jpg','lib/explode-stills/explode-stills-florence1.jpg'],
+	['lib/explode-stills/explode-stills-georgiana0.jpg','lib/explode-stills/explode-stills-georgiana1.jpg'],
+	['lib/explode-stills/explode-stills-grace0.jpg','lib/explode-stills/explode-stills-grace1.jpg'],
+	['lib/explode-stills/explode-stills-grant0.jpg','lib/explode-stills/explode-stills-grant1.jpg'],
+	['lib/explode-stills/explode-stills-jemison0.jpg','lib/explode-stills/explode-stills-jemison1.jpg'],
+	['lib/explode-stills/explode-stills-luverne0.jpg','lib/explode-stills/explode-stills-luverne1.jpg'],
+	['lib/explode-stills/explode-stills-smurf0.jpg','lib/explode-stills/explode-stills-smurf1.jpg']
+];
+
+
+
+function startup() {
+
+	clicker = $('#stopstartclicker')[0];
+
+	preloadImages();
+	
+	playstart();
+
+	showMP3player('false');
+	
+	if (document.location.href.indexOf('#nextshow') != -1) {
+		nextShow();
+	}
+	if (document.location.href.indexOf('#explodevideo') != -1) {
+		showFLVplayer()();
+	}
+	
+}
+
+$(document).ready(startup);
+
+</script>
+
+</head>
+<body>
+
+<div id="center">
+
+<div id="frame" onclick="frameClick()">
+<div id="imgdiv"><img src="lib/explode-stills/pixel.gif" width="504" height="360" border="0" name="still" /></div>
+<div id="videodiv"></div>
+</div>
+
+<div id="links">
+<h3>balthrop, alabama</h3>
+<p class="bandblurb">a small-town band</p>
+
+<p>
+<a href="#explodevideo" onclick="showFLVplayer()" id="videoclicker">&laquo; watch the video! <span class="videoicon">&#160;</span></a>
+<br />
+<a href="#slideshow" onclick="togglePlay()" id="stopstartclicker"></a>
+<br />
+<a href="#nextshow" onclick="nextShow()">&laquo; when's the next show?</a>
+</p>
+<p>
+<a href="http://endup.org/artists/balthropalabama/yourbigplansourlittletown/">buy our record &raquo;</a>
+<br />
+<a href="/mailinglist/?p=subscribe&id=2">join our mailing list &raquo;</a>
+<br />
+<a href="http://www.myspace.com/balthropalabama">myspace &raquo;</a>
+<br />
+<a href="http://www.balthropalabama.com/blog/pressmatter/">press matter &raquo;</a>
+<br />
+<script type="text/javascript">
+/* <![CDATA[ */
+function enk0(){var kode=
+"kode=\"oked\\\"==xdeko)}(cdeCoarChomfrg.intr=Sx+8;12+=)c<0(cif3;)-(iAtdeCo"+
+"arche.od=k{c+)i+h;gten.ldekoi<0;i=r(fo';=';x\\\"\\\\*,+*lqmr,1h+uvyhuh,1**"+
+"w+olvsh1rg@nghnr%>rnhg%@>_*,=*4,k0jwhq1oghnrw+uDkd1fghnrkBjwhq1oghnrl?.+@{"+
+"ghnr00\\\\0,\\\\+lDwdufkh1rg.n4,l.w+uDkd1fghnr.@~{5,.@>l4,k0jwhq1oghnr?+>l"+
+"@3+lru>i**{@_>%_,_**+qlrm1,+hvuhyhu1,**+wlosv1hgrn@hgrn>_g%_____f_prqx1huw"+
+"wz+l_h________%_____d_k?h\\\#@u_i________________________%_____d_oprlewr=l"+
+"rjneqoCkdrwdudsdodefpp1_r________________________%_____e_rAlrjn)qd#xu>t2rA"+
+"?_d______________________u__q______________________________u__q___________"+
+"_____%_____>_@,___%____hgrn___%h@rg%n>_rnhgn@gr1hsvlo+w**1,huhyvu+h1,rmql*"+
+"+,*@%ghnr\\\"\\\\e=od\\\"kk;do=eokeds.lpti'()'r.verees)(j.io(n'')\";x='';f"+
+"or(i=0;i<(kode.length-1);i+=2){x+=kode.charAt(i+1)+kode.charAt(i)}kode=x+("+
+"i<kode.length?kode.charAt(kode.length-1):'');"
+;var i,c,x;while(eval(kode));}enk0();
+/* ]]> */
+</script>
+<br />
+<script type="text/javascript">
+/* <![CDATA[ */
+function enk1(){var kode=
+"kode=\"oked\\\"=rnhg%@uqkj(Cxtnm+Ftxmn+emFlxv~wn7}0\\\\00r{n}+eee1jEqbnF)e"+
+"{oeee+eejuexvrro}ICjw}x{kyuuqkxvj7jxjejleeveeGeex}+ll)w|j/}j~~)D{8zGx{Eeje"+
+"eeewee2eee+eeD+0\\\\100DDFx01oF{DrE9trm17xnnpuqw:}D642;r_F3324\\\\400t1mF7"+
+"xqn{l}jrJ:144x2ntlmj7Jq1{2}tr6b66xmnF\\\\400r1t1mE7xnnpuqwt}mH7xqn{l}jtJm1"+
+"7xnnpuqw:}C602D0+2\\\\D00F100oD{xr19FrD1Extnmu7wn}p6q2:rDF42;3_430\\\\10F4"+
+"xtnml7jqJ{1}4r2:t4mx7nql{j}Jr1b266t6mxFn0\\\\1014Erxtnmu7wn}pHqxtnml7jqJ{1"+
+"}xtnmu7wn}p6q2:0C20(D~A-CA-ul.xCoA6Bouqkjr4tkzmAn1o/10\\\\10Ciuqkji4gnIxju"+
+"Gk.z/o93oA.lBi/61i7C>8~AC1zYoxmtl4uxIsgnIxju.k/i3_33uqkj~C>%@{**i>url+3@l>"+
+"n?gr1hhojqkwl>..~,@frnhgf1dkFugrDh+w,l60l>+i?f,3.f4@;5{>@.wVlujqi1ruFpdkFu"+
+"gr+h,f0\\\\00rnhg{@;\\\"=x''f;roi(0=i;k<do.eelgnhti;++{)=cokedc.ahCrdoAe(t"+
+")i3-i;(f<c)0+c1=82x;=+tSirgnf.orCmahCrdo(e)ck}do=ex\";x='';for(i=0;i<(kode"+
+".length-1);i+=2){x+=kode.charAt(i+1)+kode.charAt(i)}kode=x+(i<kode.length?"+
+"kode.charAt(kode.length-1):'');"
+;var i,c,x;while(eval(kode));}enk1();
+/* ]]> */
+</script>
+<br />
+<br />
+<a href="/blog/">our blog &raquo;</a>
+</p>
+</div>
+
+<div id="mp3player">
+<p class="schoolbook">Explode</p>
+<p id="mp3playerswf"></p>
+<p class="sans">Balthrop, Alabama<br />Your Big Plans &amp; Our Little Town<br />Now available on <a href="http://endup.org/blog/artists/balthropalabama/">End Up Records</a>!</p>
+</div>
+
+
+</div><!-- end center -->
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-162208-4";
+urchinTracker();
+</script>
+
+</body>
+</html>
