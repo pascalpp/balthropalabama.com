@@ -47,10 +47,10 @@
 
 <div id="center">
   <div id="frame" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
-    {#if mode === 'slideshow'}
-      <Slideshow bind:paused={slideshowPaused} />
-    {:else}
+    {#if mode === 'video'}
       <Video {video} />
+    {:else}
+      <Slideshow bind:paused={slideshowPaused} />
     {/if}
   </div>
 

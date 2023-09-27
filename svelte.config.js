@@ -15,6 +15,12 @@ const config = {
     }),
   ],
 
+  kit: {
+    prerender: {
+      handleMissingId: 'ignore',
+    },
+  },
+
   // auto adapter config
   adapter: adapter({
     pages: 'dist',

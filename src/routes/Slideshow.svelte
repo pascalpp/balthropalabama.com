@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { onMount } from 'svelte';
 
   export let paused = false;
@@ -57,16 +58,20 @@
   }
 
   function startFrameInterval() {
-    clearInterval(frameInterval);
-    frameInterval = window.setInterval(nextFrame, 100);
+    if (browser) {
+      clearInterval(frameInterval);
+      frameInterval = window?.setInterval(nextFrame, 100);
+    }
   }
   function stopFrameInterval() {
     clearInterval(frameInterval);
   }
 
   function startSlideInterval() {
-    clearInterval(slideInterval);
-    slideInterval = window.setInterval(nextSlide, 1800);
+    if (browser) {
+      clearInterval(slideInterval);
+      slideInterval = window?.setInterval(nextSlide, 1800);
+    }
   }
   function stopSlideInterval() {
     clearInterval(slideInterval);
@@ -82,11 +87,13 @@
   }
 
   onMount(() => {
-    startSlideshow();
+    if (browser) {
+      startSlideshow();
 
-    return () => {
-      stopSlideshow();
-    };
+      return () => {
+        stopSlideshow();
+      };
+    }
   });
 </script>
 
