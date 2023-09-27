@@ -2,6 +2,7 @@
   "name": "balthropalabama.com",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
