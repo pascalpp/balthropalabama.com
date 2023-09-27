@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>balthrop, alabama</title>
+    <link rel="stylesheet" href="/lib/balthrop-styles.css" type="text/css" media="all" />
+    <script language="javascript" type="text/javascript" src="/lib/js/jquery-pack.js"></script>
+    <script language="javascript" type="text/javascript" src="/lib/flash-mp3-player/swfobject.js"></script>
+    <style type="text/css">
+      body {
+        background-color: #000;
+        background-image: none;
+      }
+
+      a {
+        color: #555558;
+      }
+      a:hover {
+        color: #fff;
+      }
+
+      #center {
+        position: relative;
+        width: 723px;
+        margin: auto;
+      }
+
+      #frame {
+        position: relative;
+        display: block;
+        background-image: url(lib/explode-stills/giltframe.jpg);
+        background-repeat: no-repeat;
+        margin: auto;
+        width: 723px;
+        height: 585px;
+        cursor: pointer;
+      }
+
+      #frame img {
+        position: absolute;
+        left: 110px;
+        top: 116px;
+      }
+
+      #clickprompt {
+        position: absolute;
+        right: 120px;
+        bottom: 120px;
+        font-size: 12px;
+        display: none;
+        color: #fff;
+      }
+
+      .sans {
+        font-size: 11px;
+        font-family: Arial, Sans-Serif;
+      }
+
+      #mp3player {
+        color: #fff;
+        line-height: 14px;
+        margin-left: 5px;
+        margin-top: 8px;
+      }
+
+      #mp3player p {
+        margin-top: 0px;
+        margin-bottom: 8px;
+      }
+
+      #links {
+        float: right;
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 5px;
+        width: 500px;
+        line-height: 1.5em;
+      }
+
+      #links a {
+        margin-left: 10px;
+      }
+    </style>
+
+    <script language="javascript" type="text/javascript">
+      function newImage(arg) {
+        rslt = new Image();
+        rslt.src = arg;
+        return rslt;
+      }
+      function randomNum(start, end) {
+        var range = end - start + 1;
+        var n = Math.floor(Math.random() * range) + start;
+        return n;
+      }
+
+      var imgnum = 0;
+
+      function swapImages() {
+        imgnum++;
+        if (imgnum >= imgs[set].length) imgnum = 0;
+
+        document.images['still'].src = imgs[set][imgnum].src;
+      }
+
+      function preloadImages() {
+        for (var i = 0; i < imgs.length; i++) {
+          for (var j = 0; j < imgs[i].length; j++) {
+            if (!imgs[i][j].src) imgs[i][j] = newImage(imgs[i][j]);
+          }
+        }
+      }
+
+      function nextSet() {
+        //prompt.style.display = "none";
+        set++;
+        if (set >= imgs.length) set = 1; // skip first image - next show slot
+      }
+
+      function togglePlay() {
+        if (maintimer) {
+          playstop();
+        } else {
+          playstart();
+        }
+      }
+
+      function playstop() {
+        clearInterval(maintimer);
+        maintimer = null;
+        clicker.innerHTML = '(play slideshow)';
+        //prompt.style.display = "inline";
+      }
+
+      function playstart() {
+        clicker.innerHTML = '(pause slideshow)';
+        if (set == 0) set = pausedset - 1;
+        nextSet();
+        maintimer = setInterval('nextSet()', 2000);
+      }
+
+      function frameClick() {
+        if (maintimer) {
+          playstop();
+        } else {
+          nextSet();
+        }
+      }
+
+      function nextShow() {
+        playstop();
+        pausedset = set;
+        set = 0;
+      }
+
+      var set = 1;
+      var pausedset = 1;
+      var maintimer;
+      //var prompt;
+      var clicker;
+
+      var imgs = [
+        ['lib/nextshow/2007-05-12a.gif', 'lib/nextshow/2007-05-12b.gif'],
+        ['lib/explode-stills/explode-stills-b0.jpg', 'lib/explode-stills/explode-stills-b1.jpg'],
+        ['lib/explode-stills/explode-stills-a0.jpg', 'lib/explode-stills/explode-stills-a1.jpg'],
+        ['lib/explode-stills/explode-stills-c0.jpg', 'lib/explode-stills/explode-stills-c1.jpg'],
+        ['lib/explode-stills/explode-stills-e0.jpg', 'lib/explode-stills/explode-stills-e1.jpg'],
+        ['lib/explode-stills/explode-stills-d0.jpg', 'lib/explode-stills/explode-stills-d1.jpg'],
+        ['lib/explode-stills/explode-stills-k0.jpg', 'lib/explode-stills/explode-stills-k1.jpg'],
+        ['lib/explode-stills/explode-stills-f0.jpg', 'lib/explode-stills/explode-stills-f1.jpg'],
+        ['lib/explode-stills/explode-stills-g0.jpg', 'lib/explode-stills/explode-stills-g1.jpg'],
+        ['lib/explode-stills/explode-stills-h0.jpg', 'lib/explode-stills/explode-stills-h1.jpg'],
+        ['lib/explode-stills/explode-stills-i0.jpg', 'lib/explode-stills/explode-stills-i1.jpg'],
+        ['lib/explode-stills/explode-stills-l0.jpg', 'lib/explode-stills/explode-stills-l1.jpg'],
+        ['lib/explode-stills/explode-stills-j0.jpg', 'lib/explode-stills/explode-stills-j1.jpg'],
+        ['lib/explode-stills/explode-stills-babbie0.jpg', 'lib/explode-stills/explode-stills-babbie1.jpg'],
+        ['lib/explode-stills/explode-stills-benton0.jpg', 'lib/explode-stills/explode-stills-benton1.jpg'],
+        ['lib/explode-stills/explode-stills-clanton0.jpg', 'lib/explode-stills/explode-stills-clanton1.jpg'],
+        ['lib/explode-stills/explode-stills-douglas0.jpg', 'lib/explode-stills/explode-stills-douglas1.jpg'],
+        ['lib/explode-stills/explode-stills-elba0.jpg', 'lib/explode-stills/explode-stills-elba1.jpg'],
+        ['lib/explode-stills/explode-stills-elmore0.jpg', 'lib/explode-stills/explode-stills-elmore1.jpg'],
+        ['lib/explode-stills/explode-stills-florence0.jpg', 'lib/explode-stills/explode-stills-florence1.jpg'],
+        ['lib/explode-stills/explode-stills-georgiana0.jpg', 'lib/explode-stills/explode-stills-georgiana1.jpg'],
+        ['lib/explode-stills/explode-stills-grace0.jpg', 'lib/explode-stills/explode-stills-grace1.jpg'],
+        ['lib/explode-stills/explode-stills-grant0.jpg', 'lib/explode-stills/explode-stills-grant1.jpg'],
+        ['lib/explode-stills/explode-stills-jemison0.jpg', 'lib/explode-stills/explode-stills-jemison1.jpg'],
+        ['lib/explode-stills/explode-stills-luverne0.jpg', 'lib/explode-stills/explode-stills-luverne1.jpg'],
+        ['lib/explode-stills/explode-stills-smurf0.jpg', 'lib/explode-stills/explode-stills-smurf1.jpg'],
+      ];
+
+      function startup() {
+        //prompt = $('#clickprompt')[0];
+        //prompt.style.display = "inline";
+
+        clicker = $('#stopstartclicker')[0];
+
+        preloadImages();
+
+        setInterval('swapImages()', 100);
+        playstart();
+      }
+
+      $(document).ready(startup);
+    </script>
+  </head>
+  <body>
+    <div id="center">
+      <div id="frame" onclick="frameClick()">
+        <img src="lib/explode-stills/pixel.gif" width="504" height="360" border="0" name="still" />
+        <div id="clickprompt">(click for more)</div>
+      </div>
+
+      <div id="links">
+        <a href="javascript:togglePlay()" id="stopstartclicker">(play slideshow)</a>
+        <a href="javascript:nextShow()">(when's the next show?)</a>
+        <br />
+        <a href="/mailinglist/?p=subscribe&id=2">(join our mailing list)</a>
+        <a href="http://www.myspace.com/balthropalabama">(myspace)</a>
+        <script type="text/javascript">
+          /* <![CDATA[ */
+          function hivelogic_enkoder() {
+            var kode =
+              'kode="nrgh@%rnhg_%@@{ghnr,\\000+fghFrduFkrpiuj1lqwu@V{.;>45.@,f?3+fli6>,0' +
+              '+lDwghFrdufkh1rg@n~f.,l.k>jwhq1oghnrl?3>l@u+ir*>@*>{_%__-/.-otpu/4k.xy|kxk' +
+              '/4--z.royvk4ujCqjkqu(Auqkj(CtbmxFnx+~mnl}v\\000wr7n{e}1+Ej)q{noF+eeevjru}x' +
+              'CrwoxIkju}q{xyjujkjvj7lxeeGv+e1lxw}jl})~|2E8jGe2D+D+F\\00100oD{xr19FrD1Ext' +
+              'nmu7wn}p6q2:rDF42;34__3\\001__F4xtnml7jqJ{1}4r2:t4mx7nql{j}Jr1b26b66xtnm\\' +
+              '001F14Erxtnmu7wn}pHqxtnml7jqJ{1}xtnmu7wn}p6q2:0C20(DAbC~--lAxuo.6CoAqBju4k' +
+              'krmtnzoA11\\001/Ciuqkji4gnIxjuGk.z/o93oA.lBi/61i7C>8~AC1zYoxmtl4uxIsgnIxju' +
+              '.k/i33__3q__juCk(~kCuj__q@_%ghnr>_%rnhgn@gr1hsvlo+w**1,huhyvu+h1,rmql*+,*%' +
+              '>{@**>iru+l@3>l?+nrgh1ohqjwk04,>l.@5,~{.@nrgh1fkduDw+l.4,.nrgh1fkduDw+l,\\' +
+              "000nrgh@{.+l?nrgh1ohqjwkBnrgh1fkduDw+nrgh1ohqjwk04,=**,>\";x='';for(i=0;i<" +
+              'kode.length;i++){c=kode.charCodeAt(i)-3;if(c<0)c+=128;x+=String.fromCharCo' +
+              'de(c)}kode=x';
+            var i, c, x;
+            while (eval(kode));
+          }
+          hivelogic_enkoder();
+          /* ]]> */
+        </script>
+        <br />
+        <a href="/blog/">(enter site)</a>
+        <br />
+      </div>
+
+      <div id="mp3player">
+        <p class="schoolbook">Explode</p>
+        <p id="mp3playerswf"></p>
+        <p class="sans">
+          Balthrop, Alabama
+          <br />
+          Your Big Plans &amp; Our Little Town
+          <br />
+          Available June 26th on End Up Records!
+        </p>
+      </div>
+    </div>
+    <!-- end center -->
+
+    <script type="text/javascript">
+      var so = new SWFObject('/lib/flash-mp3-player/mp3player.swf', 'mpl', '200', '19', '7');
+      so.addParam('allowfullscreen', 'false');
+      so.addVariable('autostart', 'true');
+      so.addVariable('file', '/lib/songs/explode-web.mp3');
+      so.addVariable('height', '19');
+      so.addVariable('width', '200');
+      so.write('mp3playerswf');
+    </script>
+  </body>
+</html>
