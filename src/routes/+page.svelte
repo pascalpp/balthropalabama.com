@@ -33,11 +33,9 @@
     ['/lib/explode-stills/explode-stills-smurf0.jpg', '/lib/explode-stills/explode-stills-smurf1.jpg'],
   ];
 
-  let slideshowToggle: HTMLAnchorElement;
-  let slideImage: HTMLImageElement;
   let slideInterval: number | undefined = undefined;
-  let slideIndex = 0;
   let frameInterval: number | undefined = undefined;
+  let slideIndex = 0;
   let frameIndex = 0;
 
   $: slide = slides[slideIndex];
@@ -72,6 +70,8 @@
   }
 
   function startSlideshow() {
+    mode = 'slideshow';
+    slideshowPlaying = true;
     startFrameInterval();
     startSlideInterval();
   }
@@ -80,20 +80,22 @@
     stopSlideInterval();
   }
   function toggleSlideshow() {
-    if (slideshowPlaying) {
-      stopSlideInterval();
-      slideshowPlaying = false;
+    if (mode === 'slideshow') {
+      if (slideshowPlaying) {
+        stopSlideInterval();
+        slideshowPlaying = false;
+      } else {
+        startSlideInterval();
+        slideshowPlaying = true;
+      }
     } else {
-      startSlideInterval();
-      slideshowPlaying = true;
+      startSlideshow();
     }
   }
 
   function onFrameClick() {}
 
   onMount(() => {
-    mode = 'slideshow';
-    slideshowPlaying = true;
     startSlideshow();
 
     return () => {
@@ -106,7 +108,7 @@
   {mode} - {slideshowPlaying} - {slideIndex} - {frameIndex}
 </div>
 <div id="center">
-  <div id="frame" on:click={onFrameClick}>
+  <div id="frame" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
     {#if mode === 'slideshow'}
       <div id="imgdiv">
         <img src="/lib/explode-stills/pixel.gif" width="504" height="360" alt="slideshow" id="slide" />
