@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "vite dev",
-    "build": "npx vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "playwright test",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
