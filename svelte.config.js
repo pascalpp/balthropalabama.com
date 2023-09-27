@@ -19,16 +19,16 @@ const config = {
     prerender: {
       handleMissingId: 'ignore',
     },
-  },
 
-  // auto adapter config
-  adapter: adapter({
-    pages: 'dist',
-    assets: 'dist',
-    fallback: false,
-    precompress: false,
-    strict: false,
-  }),
+    // auto adapter config
+    adapter: adapter({
+      pages: 'dist',
+      assets: 'dist',
+      fallback: false,
+      precompress: false,
+      strict: false,
+    }),
+  },
 };
 
 export default config;
