@@ -45,9 +45,6 @@
   });
 </script>
 
-<div style="position: absolute; z-index: 1; color: white; padding: 20px;">
-  {mode} - {slideshowPaused}
-</div>
 <div id="center">
   <div id="frame" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
     {#if mode === 'slideshow'}
@@ -113,6 +110,8 @@
 
 <a rel="me" href="https://mastodon.social/@pascalpp" style="display: none">Mastodon</a>
 <a rel="me" href="https://moth.social/@pascal" style="display: none">Mastodon</a>
+
+<!-- svelte-vercel -->
 
 <style lang="less">
   a {
