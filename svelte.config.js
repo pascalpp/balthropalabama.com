@@ -15,9 +15,14 @@ const config = {
     }),
   ],
 
-  kit: {
-    adapter: adapter(),
-  },
+  // auto adapter config
+  adapter: adapter({
+    pages: 'dist',
+    assets: 'dist',
+    fallback: false,
+    precompress: false,
+    strict: false,
+  }),
 };
 
 export default config;
