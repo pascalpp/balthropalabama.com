@@ -308,6 +308,7 @@
           gap: 0.5em 1.25em;
         }
       }
+
       .endup {
         width: 40px;
         flex-shrink: 0;
