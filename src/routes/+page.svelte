@@ -117,9 +117,10 @@
     line-height: 1.4;
     min-height: 100vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 
     a {
       color: #555558;
@@ -130,6 +131,7 @@
     }
 
     .main-content {
+      width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: center;
