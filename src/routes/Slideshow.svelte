@@ -111,8 +111,6 @@
 <style lang="less">
   .slideshow {
     box-sizing: border-box;
-    padding: 40px;
-    padding-top: 47px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -121,11 +119,12 @@
     align-items: center;
 
     .slide {
+      margin-top: 8px;
       border-radius: 2px;
       overflow: hidden;
       position: relative;
-      max-width: 504px;
-      aspect-ratio: 1.405 / 1;
+      width: 69%;
+      aspect-ratio: 1.4 / 1;
       &::after {
         position: absolute;
         content: '';
