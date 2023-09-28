@@ -115,6 +115,11 @@
     padding-bottom: 10vh;
     font-size: 18px;
     line-height: 1.4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
     a {
       color: #555558;
@@ -174,6 +179,7 @@
 
       .header {
         line-height: 1.2;
+        padding-top: 0.5em;
 
         .band-name {
           font-size: 1.8em;
