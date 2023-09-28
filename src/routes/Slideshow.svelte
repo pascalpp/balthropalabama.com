@@ -86,6 +86,11 @@
     stopSlideInterval();
   }
 
+  function onClick() {
+    paused = true;
+    nextSlide();
+  }
+
   onMount(() => {
     if (browser) {
       startSlideshow();
@@ -97,29 +102,45 @@
   });
 </script>
 
-<div class="slideshow">
-  <img src="/lib/explode-stills/pixel.gif" width="504" height="360" alt="slideshow" id="slide" />
+<div class="slideshow" role="button" tabindex="0" on:click={onClick} on:keydown={onClick}>
+  <div class="slide">
+    <img src="/lib/explode-stills/pixel.gif" width="504" height="360" alt="slideshow" id="slide" />
+  </div>
 </div>
 
 <style lang="less">
   .slideshow {
-    position: relative;
-    max-width: 504px;
-    aspect-ratio: 1.4 / 1;
-    &::after {
-      position: absolute;
-      content: '';
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      box-shadow: inset 0 0 10px black;
-      z-index: 1;
-    }
-  }
-
-  img {
+    box-sizing: border-box;
+    padding: 40px;
+    padding-top: 47px;
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .slide {
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+      max-width: 504px;
+      aspect-ratio: 1.405 / 1;
+      &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: inset 0 0 10px black;
+        z-index: 1;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 </style>

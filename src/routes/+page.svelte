@@ -64,7 +64,7 @@
 
 <main>
   <div class="main-content">
-    <div class="frame {mode}" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
+    <div class="frame {mode}">
       {#if mode === 'video'}
         <Video {video} />
       {:else}
@@ -175,8 +175,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px;
-      padding-top: 48px;
 
       @media screen and (max-width: 800px) {
         &.video {
