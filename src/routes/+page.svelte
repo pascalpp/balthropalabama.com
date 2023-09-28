@@ -45,6 +45,16 @@
   });
 </script>
 
+<svelte:head>
+  <title>Balthrop, Alabama</title>
+  <meta name="description" content="A small-town band" />
+  <meta property="og:title" content="Balthrop, Alabama" />
+  <meta property="og:description" content="A small-town band" />
+  <meta property="og:url" content="https://www.balthropalabama.com" />
+  <meta property="og:site_name" content="Balthrop, Alabama" />
+  <meta property="og:image" content="https://www.balthropalabama.com/lib/images/balthropalabama-mural-og-preview.jpg" />
+</svelte:head>
+
 <main>
   <div class="main-content">
     <div class="frame {mode}" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
