@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import './page.less';
   import Slideshow from './Slideshow.svelte';
   import Video from './Video.svelte';
+  import { onMount } from 'svelte';
 
   let mode: 'slideshow' | 'video';
   let slideshowPaused = false;
@@ -45,67 +45,63 @@
   });
 </script>
 
-<div id="center">
-  <div id="frame" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
-    {#if mode === 'video'}
-      <Video {video} />
-    {:else}
-      <Slideshow bind:paused={slideshowPaused} />
-    {/if}
+<main>
+  <div class="main-content">
+    <div class="frame {mode}" role="button" on:click={onFrameClick} on:keydown={onFrameClick} tabindex="0">
+      {#if mode === 'video'}
+        <Video {video} />
+      {:else}
+        <Slideshow bind:paused={slideshowPaused} />
+      {/if}
+    </div>
+
+    <div class="menu">
+      <section class="header">
+        <h1 class="band-name">balthrop, alabama</h1>
+        <h3 class="band-blurb">a small-town band</h3>
+      </section>
+
+      <section class="frame-links">
+        <p class="featured-link">
+          <a href="#vampirevideo">watch a video! <!-- svg video icon here --></a>
+        </p>
+        <section class="sublinks">
+          <p><a href="#vampirevideo" data-onclick="showVideo('vampire')">a vampire’s lament</a></p>
+          <p><a href="#gayvideo" data-onclick="showVideo('gay')">you’ve gotta be gay</a></p>
+          <p><a href="#prettylittlebirdvideo" data-onclick="showVideo('prettylittlebird')">pretty little bird</a></p>
+          <p><a href="#artifactsvideo" data-onclick="showVideo('artifacts')">artifacts</a></p>
+          <p><a href="#electricityvideo" data-onclick="showVideo('electricity')">electricity</a></p>
+          <p><a href="#godvideo" data-onclick="showVideo('god')">god loves my country</a></p>
+          <p><a href="#explodevideo" data-onclick="showVideo('explode')">explode!</a></p>
+        </section>
+        <section class="slideshow-toggle">
+          <p>
+            <a href="#slideshow" on:click={toggleSlideshow}>
+              {#if slideshowPaused}
+                play slideshow
+              {:else}
+                pause slideshow
+              {/if}
+            </a>
+          </p>
+        </section>
+      </section>
+
+      <section class="footer">
+        <section class="outbound-links">
+          <p><a href="https://balthropalabama.bandcamp.com">buy our records, please!</a></p>
+          <p><a href="https://facebook.com/balthropalabama">facebook</a></p>
+          <p><a href="https://instagram.com/balthropalabama">instagram</a></p>
+          <p><a href="https://www.youtube.com/channel/UCsSgHt8mXKP42yDL985lpHA">youtube</a></p>
+          <p><span class="fuck-twitter">fuck twitter</span></p>
+        </section>
+        <p class="endup">
+          <img src="/lib/images/endup-logo.gif" alt="" width="40" height="77" />
+        </p>
+      </section>
+    </div>
   </div>
-
-  <div id="links">
-    <h3>balthrop, alabama</h3>
-    <p class="bandblurb">a small-town band</p>
-
-    <p>
-      <a href="#vampirevideo" id="videoclicker">
-        &laquo; watch a video!
-        <span class="videoicon">&#160;</span>
-      </a>
-      <br />
-      <span class="sublinks">
-        <a href="#vampirevideo" data-onclick="showVideo('vampire')">&laquo; a vampire’s lament</a>
-        <br />
-        <a href="#gayvideo" data-onclick="showVideo('gay')">&laquo; you’ve gotta be gay</a>
-        <br />
-        <a href="#prettylittlebirdvideo" data-onclick="showVideo('prettylittlebird')">&laquo; pretty little bird</a>
-        <br />
-        <a href="#artifactsvideo" data-onclick="showVideo('artifacts')">&laquo; artifacts</a>
-        <br />
-        <a href="#electricityvideo" data-onclick="showVideo('electricity')">&laquo; electricity</a>
-        <br />
-        <a href="#godvideo" data-onclick="showVideo('god')">&laquo; god loves my country</a>
-        <br />
-        <a href="#explodevideo" data-onclick="showVideo('explode')">&laquo; explode!</a>
-        <br />
-      </span>
-      <a href="#slideshow" on:click={toggleSlideshow}>
-        {#if slideshowPaused}
-          &laquo; play slideshow
-        {:else}
-          &laquo; pause slideshow
-        {/if}
-      </a>
-    </p>
-    <p>
-      <a href="https://balthropalabama.bandcamp.com">buy our records, please! &raquo;</a>
-      <br />
-      <a href="https://facebook.com/balthropalabama">facebook &raquo;</a>
-      <br />
-      <a href="https://instagram.com/balthropalabama">instagram &raquo;</a>
-      <br />
-      <a href="https://www.youtube.com/channel/UCsSgHt8mXKP42yDL985lpHA">youtube &raquo;</a>
-      <br />
-      <span class="fuck-twitter">fuck twitter</span>
-      <br />
-    </p>
-
-    <p>
-      <img src="/lib/images/endup-logo.gif" alt="" width="40" height="77" />
-    </p>
-  </div>
-</div>
+</main>
 <!-- end center -->
 
 <a rel="me" href="https://mastodon.social/@pascalpp" style="display: none">Mastodon</a>
@@ -114,85 +110,190 @@
 <!-- svelte-vercel -->
 
 <style lang="less">
-  a {
-    color: #555558;
-    text-decoration: none;
-  }
-  a:hover {
-    color: #fff;
-  }
+  main {
+    padding: 2vw;
+    padding-bottom: 10vh;
+    font-size: 18px;
+    line-height: 1.4;
 
-  h3 {
-    font-weight: normal;
-    margin-bottom: 0;
-  }
+    a {
+      color: #555558;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #fff;
+    }
 
-  p.bandblurb {
-    margin-top: 0;
-    margin-bottom: 2em;
-    line-height: 1em;
-    font-size: 0.8em;
-    color: #666;
-  }
+    .main-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1.5em;
 
-  .fuck-twitter {
-    color: #333;
-  }
+      @media screen and (max-width: 800px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+      }
+    }
 
-  #center {
-    position: relative;
-    width: 950px;
-    margin: auto;
-    margin-top: 20px;
-    padding-bottom: 20px;
-  }
+    .frame {
+      order: 1;
+      outline: none;
+      background-image: url(/lib/explode-stills/giltframe.jpg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100%;
+      max-width: 723px;
+      aspect-ratio: 1.236;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      padding-top: 48px;
 
-  #frame {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-image: url(/lib/explode-stills/giltframe.jpg);
-    background-repeat: no-repeat;
-    width: 723px;
-    height: 585px;
-    cursor: pointer;
-    margin-right: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 10px;
-  }
+      @media screen and (max-width: 800px) {
+        &.video {
+          padding: 0;
+        }
+      }
+    }
 
-  #links {
-    position: absolute;
-    left: 740px;
-    top: 0;
-    text-align: left;
-    padding-top: 10px;
-    line-height: 1.6em;
-  }
+    .menu {
+      order: 1;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+      @media screen and (max-width: 800px) {
+        display: contents;
+      }
 
-  #links p {
-    margin-top: 0;
-    margin-bottom: 18px;
-  }
+      .header {
+        line-height: 1.2;
 
-  .sublinks {
-    display: block;
-    font-size: 14px;
-    line-height: 1.4em;
-    padding-left: 13px;
-  }
+        .band-name {
+          font-size: 1.8em;
+          font-weight: normal;
+          margin: 0;
+          @media screen and (max-width: 800px) {
+            &::before {
+              content: '~ ';
+            }
+            &::after {
+              content: ' ~';
+            }
+          }
+        }
 
-  .videoicon {
-    background-image: url(/lib/images/video-icon.gif);
-    background-repeat: no-repeat;
-    background-position: 2px 5px;
-    padding-left: 16px;
-  }
+        .band-blurb {
+          margin: 0;
+          font-weight: normal;
+          color: #666;
+        }
 
-  a:hover .videoicon {
-    background-image: url(/lib/images/video-icon-over.gif);
+        @media screen and (max-width: 800px) {
+          margin-top: 2vh;
+          order: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: baseline;
+          gap: 1em;
+        }
+        @media screen and (max-width: 600px) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.25em;
+        }
+      }
+    }
+
+    .frame-links {
+      order: 1;
+      text-align: left;
+      p {
+        margin: 0;
+      }
+
+      a {
+        &::before {
+          content: '« ';
+        }
+        @media screen and (max-width: 800px) {
+          &::before {
+            content: '';
+          }
+        }
+      }
+
+      .sublinks {
+        padding-left: 1em;
+      }
+
+      @media screen and (max-width: 800px) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0 2em;
+        .sublinks {
+          display: contents;
+        }
+      }
+    }
+
+    .footer {
+      order: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1em;
+      @media screen and (max-width: 800px) {
+        align-items: center;
+      }
+
+      .outbound-links {
+        a {
+          white-space: nowrap;
+          &::after {
+            content: ' »';
+          }
+        }
+
+        .fuck-twitter {
+          white-space: nowrap;
+          color: #333;
+        }
+        .endup {
+          margin-top: 1em;
+        }
+
+        @media screen and (max-width: 800px) {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 0 2em;
+        }
+      }
+    }
+
+    .videoicon {
+      background-image: url(/lib/images/video-icon.gif);
+      background-repeat: no-repeat;
+      background-position: 2px 5px;
+      padding-left: 16px;
+    }
+
+    a:hover .videoicon {
+      background-image: url(/lib/images/video-icon-over.gif);
+    }
   }
 </style>

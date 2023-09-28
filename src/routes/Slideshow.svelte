@@ -104,6 +104,8 @@
 <style lang="less">
   .slideshow {
     position: relative;
+    max-width: 504px;
+    aspect-ratio: 1.4 / 1;
     &::after {
       position: absolute;
       content: '';
@@ -117,7 +119,7 @@
   }
 
   img {
-    width: 504px;
-    height: 360px;
+    width: 100%;
+    height: auto;
   }
 </style>

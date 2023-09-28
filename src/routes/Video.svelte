@@ -78,5 +78,9 @@
 <style lang="less">
   .video {
     background-color: black;
+    iframe {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 </style>
