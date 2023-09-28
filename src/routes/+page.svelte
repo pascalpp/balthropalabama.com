@@ -53,6 +53,12 @@
   <meta property="og:url" content="https://www.balthropalabama.com" />
   <meta property="og:site_name" content="Balthrop, Alabama" />
   <meta property="og:image" content="https://www.balthropalabama.com/lib/images/balthropalabama-mural-og-preview.jpg" />
+  <meta property="twitter:title" content="Fuck Twitter" />
+  <meta property="twitter:description" content="Get off this site, it doesn’t deserve you." />
+  <meta
+    property="twitter:image"
+    content="https://www.balthropalabama.com/lib/images/balthropalabama-mural-twitter-preview.jpg"
+  />
 </svelte:head>
 
 <main>
