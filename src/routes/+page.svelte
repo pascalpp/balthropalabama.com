@@ -79,9 +79,7 @@
       </section>
 
       <section class="frame-links">
-        <p class="featured-link">
-          <a href="#vampirevideo">watch a video! <!-- svg video icon here --></a>
-        </p>
+        <p class="video-link-header">watch a video!</p>
         <section class="sublinks">
           <p><a href="#vampirevideo" data-onclick="showVideo('vampire')">a vampire’s lament</a></p>
           <p><a href="#gayvideo" data-onclick="showVideo('gay')">you’ve gotta be gay</a></p>
