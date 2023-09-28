@@ -2,6 +2,7 @@
   import './page.less';
   import Slideshow from './Slideshow.svelte';
   import Video from './Video.svelte';
+  import EndupLogo from './endup-logo.svg?component';
   import { onMount } from 'svelte';
 
   let mode: 'slideshow' | 'video';
@@ -111,9 +112,9 @@
           <p><a href="https://www.youtube.com/channel/UCsSgHt8mXKP42yDL985lpHA">youtube</a></p>
           <p><span class="fuck-twitter">fuck twitter</span></p>
         </section>
-        <p class="endup">
-          <img src="/lib/images/endup-logo.gif" alt="" width="40" height="77" />
-        </p>
+        <section class="endup">
+          <EndupLogo />
+        </section>
       </section>
     </div>
   </div>
@@ -137,9 +138,10 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    color: #888;
 
     a {
-      color: #555558;
+      color: inherit;
       text-decoration: none;
     }
     a:hover {
@@ -190,7 +192,8 @@
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      gap: 1.5em;
+      gap: 1.25em;
+      line-height: 1.4;
       @media screen and (max-width: 800px) {
         display: contents;
       }
@@ -200,6 +203,7 @@
         padding-top: 0.5em;
 
         .band-name {
+          color: #d5b16b;
           font-size: 1.8em;
           font-weight: normal;
           margin: 0;
@@ -216,7 +220,6 @@
         .band-blurb {
           margin: 0;
           font-weight: normal;
-          color: #666;
         }
 
         @media screen and (max-width: 800px) {
@@ -226,13 +229,11 @@
           flex-direction: row;
           justify-content: center;
           align-items: baseline;
-          gap: 1em;
         }
         @media screen and (max-width: 600px) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.25em;
         }
       }
     }
@@ -265,7 +266,8 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: 0 2em;
+        gap: 0.25em 1.25em;
+        padding: 0 1em;
         .sublinks {
           display: contents;
         }
@@ -280,6 +282,9 @@
       gap: 1em;
       @media screen and (max-width: 800px) {
         align-items: center;
+        margin: 0 1em;
+        padding: 1em;
+        border-top: 1px solid fade(white, 30%);
       }
 
       .outbound-links {
@@ -292,20 +297,21 @@
 
         .fuck-twitter {
           white-space: nowrap;
-          color: #333;
+          opacity: 0.7;
         }
-        .endup {
-          margin-top: 1em;
-        }
-
         @media screen and (max-width: 800px) {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
           align-items: center;
           justify-content: center;
-          gap: 0 2em;
+          gap: 0.5em 1.25em;
         }
+      }
+      .endup {
+        width: 40px;
+        flex-shrink: 0;
+        margin: -2px;
       }
     }
 

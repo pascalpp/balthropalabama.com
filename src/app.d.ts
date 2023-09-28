@@ -7,3 +7,9 @@ declare namespace App {
   // interface PageData {}
   // interface Platform {}
 }
+
+declare module '*.svg?component' {
+  import type { SvelteComponent } from 'svelte';
+
+  export default class Comp extends SvelteComponent {}
+}
