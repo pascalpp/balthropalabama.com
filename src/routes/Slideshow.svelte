@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
 
   export let paused = false;
+  export let still = false;
 
   const slides = [
     ['/lib/explode-stills/explode-stills-b0.jpg', '/lib/explode-stills/explode-stills-b1.jpg'],
@@ -38,10 +39,15 @@
   let frameIndex = 0;
 
   $: slide = slides[slideIndex];
-  $: if (paused) {
+  $: if (paused || still) {
     stopSlideInterval();
   } else {
     startSlideInterval();
+  }
+  $: if (still) {
+    stopFrameInterval();
+  } else {
+    startFrameInterval();
   }
 
   function nextFrame() {
@@ -88,6 +94,7 @@
 
   function onClick() {
     paused = true;
+    still = false;
     nextSlide();
   }
 
@@ -104,7 +111,7 @@
 
 <div class="slideshow" role="button" tabindex="0" on:click={onClick} on:keydown={onClick}>
   <div class="slide">
-    <img src="/lib/explode-stills/pixel.gif" width="504" height="360" alt="slideshow" id="slide" />
+    <img src={slides[0][0]} width="504" height="360" alt="slideshow" id="slide" />
   </div>
 </div>
 
