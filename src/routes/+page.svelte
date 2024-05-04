@@ -119,12 +119,9 @@
     </div>
   </div>
 </main>
-<!-- end center -->
 
 <a rel="me" href="https://mastodon.social/@pascalpp" style="display: none">Mastodon</a>
 <a rel="me" href="https://moth.social/@pascal" style="display: none">Mastodon</a>
-
-<!-- svelte-vercel -->
 
 <style lang="less">
   main {
