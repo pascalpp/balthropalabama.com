@@ -55,7 +55,7 @@
   <meta property="og:site_name" content="Balthrop, Alabama" />
   <meta property="og:image" content="https://www.balthropalabama.com/lib/images/balthropalabama-mural-og-preview.jpg" />
   <meta property="twitter:title" content="Fuck Twitter" />
-  <meta property="twitter:description" content="Get off this site, it doesn’t deserve you." />
+  <meta property="twitter:description" content="Balthrop, Alabmama encourages you to get off Twitter. It doesn’t deserve you." />
   <meta
     property="twitter:image"
     content="https://www.balthropalabama.com/lib/images/balthropalabama-mural-twitter-preview.jpg"
@@ -107,7 +107,7 @@
           <p><a href="https://balthropalabama.bandcamp.com">buy our records, please!</a></p>
           <p><a href="https://facebook.com/balthropalabama">facebook</a></p>
           <p><a href="https://instagram.com/balthropalabama">instagram</a></p>
-          <p><a href="https://www.youtube.com/channel/UCsSgHt8mXKP42yDL985lpHA">youtube</a></p>
+          <p><a href="https://youtube.com/user/balthropalabama">youtube</a></p>
           <p><span class="fuck-twitter">fuck twitter</span></p>
         </section>
         <section class="endup">
