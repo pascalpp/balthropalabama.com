@@ -5,7 +5,7 @@
   import EndupLogo from './endup-logo.svg?component';
   import { onMount } from 'svelte';
 
-  let mode: 'slideshow' | 'video';
+  let mode: 'slideshow' | 'video' | 'still';
   let slideshowPaused = false;
   let video = '';
 
@@ -21,13 +21,16 @@
     slideshowPaused = !slideshowPaused;
   }
 
-  function onFrameClick() {}
+  $: slideshowLabel = slideshowPaused ? 'play slideshow' : 'pause slideshow';
 
   function checkHash() {
     const hash = window.location.hash.slice(1);
     if (hash.includes('video')) {
       mode = 'video';
       video = hash.replace('video', '');
+      pauseSlideshow();
+    } else if (hash.includes('still')) {
+      mode = 'still';
       pauseSlideshow();
     } else {
       mode = 'slideshow';
@@ -71,7 +74,7 @@
       {#if mode === 'video'}
         <Video {video} />
       {:else}
-        <Slideshow bind:paused={slideshowPaused} />
+        <Slideshow bind:paused={slideshowPaused} still={mode === 'still'} />
       {/if}
     </div>
 
@@ -94,12 +97,8 @@
         </section>
         <section class="slideshow-toggle">
           <p>
-            <a href="#slideshow" on:click={toggleSlideshow}>
-              {#if slideshowPaused}
-                play slideshow
-              {:else}
-                pause slideshow
-              {/if}
+            <a href="#slideshow" on:click={toggleSlideshow} aria-label={slideshowLabel}>
+              {slideshowLabel}
             </a>
           </p>
         </section>
