@@ -28,5 +28,9 @@ export default defineConfig({
       name: 'safari',
       use: { ...devices['Desktop Safari'], deviceScaleFactor: 2 },
     },
+    {
+      name: 'iphone',
+      use: { ...devices['iPhone 14'] },
+    },
   ],
 });

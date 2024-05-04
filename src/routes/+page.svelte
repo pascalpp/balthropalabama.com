@@ -6,7 +6,7 @@
   import { onMount } from 'svelte';
 
   let mode: 'slideshow' | 'video' | 'still';
-  let slideshowPaused = false;
+  let slideshowPaused = true;
   let video = '';
 
   function startSlideshow() {
