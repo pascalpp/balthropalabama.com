@@ -166,7 +166,7 @@
     .frame {
       order: 1;
       outline: none;
-      background-image: url(/lib/explode-stills/giltframe.jpg);
+      background-image: url(./giltframe.jpg);
       background-repeat: no-repeat;
       background-size: contain;
       width: 100%;
