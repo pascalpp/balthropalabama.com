@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-vercel';
 import sveltePreprocess from 'svelte-preprocess';
 // import { vitePreprocess } from '@sveltejs/kit/vite';
 import autoprefixer from 'autoprefixer';
@@ -20,13 +20,9 @@ const config = {
       handleMissingId: 'ignore',
     },
 
-    // auto adapter config
+    // vercel adapter config
     adapter: adapter({
-      pages: 'dist',
-      assets: 'dist',
-      fallback: false,
-      precompress: false,
-      strict: false,
+      // Vercel adapter options
     }),
   },
 };
